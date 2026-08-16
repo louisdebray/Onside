@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-accent: #10E8A0;
+  --color-accent-active: #00B589;
+
+  --color-bg-dark: #0A0E14;
+  --color-surface-dark: #0F141C;
+
+  --color-danger: #FF5C7A;
+  --color-warning: #FFB454;
+
+  --animate-stagger-in: stagger-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-flash-update: flash-update 0.7s ease-out;
+  --animate-glow-pulse: glow-pulse 2.5s ease-in-out infinite;
+
+  @keyframes stagger-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes flash-update {
+    0% {
+      background-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+      transform: scale(1.06);
+    }
+    100% {
+      background-color: transparent;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-bg-dark);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg-dark);
+  color: #E7ECF3;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+.font-mono, .stat-value, .score-value {
+  font-family: var(--font-mono);
+}
+
+/* Glassmorphism layers */
+.glass-primary {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, white 10%, transparent), color-mix(in srgb, white 2%, transparent)) padding-box,
+    linear-gradient(135deg, color-mix(in srgb, var(--color-accent) 55%, transparent), color-mix(in srgb, white 8%, transparent) 60%) border-box;
+  box-shadow: 0 20px 60px -20px rgba(16, 232, 160, 0.15), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+.glass-secondary {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: color-mix(in srgb, white 5%, transparent);
+  border: 1px solid color-mix(in srgb, white 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.stagger-list > * {
+  animation: stagger-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-list > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-list > *:nth-child(2) { animation-delay: 40ms; }
+.stagger-list > *:nth-child(3) { animation-delay: 80ms; }
+.stagger-list > *:nth-child(4) { animation-delay: 120ms; }
+.stagger-list > *:nth-child(5) { animation-delay: 160ms; }
+.stagger-list > *:nth-child(6) { animation-delay: 200ms; }
+.stagger-list > *:nth-child(7) { animation-delay: 240ms; }
+.stagger-list > *:nth-child(8) { animation-delay: 280ms; }
+
+.focus-match-card {
+  --x: 50%;
+  --y: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-navbar {
+  background: color-mix(in srgb, var(--color-bg-dark) 70%, transparent);
+}
+
+.focus-match-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--x) var(--y), color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 60%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
