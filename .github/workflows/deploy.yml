@@ -23,15 +23,15 @@ jobs:
         with:
           node-version: 20
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: onside-github-1/frontend
         run: npm install
       - name: Build
-        working-directory: frontend
+        working-directory: onside-github-1/frontend
         run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist
+          path: onside-github-1/frontend/dist
 
   deploy:
     needs: build
