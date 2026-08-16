@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- iOS ignore le favicon classique pour l'icône "Ajouter à l'écran d'accueil" ;
+         il lui faut spécifiquement un apple-touch-icon. -->
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="apple-mobile-web-app-title" content="Onside" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#0A0E14" />
+    <title>Onside</title>
+    <script>
+      // Contrepartie de public/404.html : restitue l'URL réelle avant que React
+      // Router ne s'initialise, pour qu'un lien direct ou une actualisation sur une
+      // sous-page (ex: /Onside/scores) fonctionne comme si GitHub Pages savait
+      // vraiment router ça côté serveur.
+      (function () {
+        var params = new URLSearchParams(window.location.search)
+        var redirectPath = params.get('p')
+        if (redirectPath === null) return
+        var query = params.get('q')
+        var newUrl =
+          window.location.pathname.replace(/\/$/, '') +
+          '/' +
+          redirectPath +
+          (query ? '?' + query : '') +
+          window.location.hash
+        window.history.replaceState(null, '', newUrl)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
